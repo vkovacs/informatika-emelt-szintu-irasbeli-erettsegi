@@ -1,9 +1,9 @@
-filename = "ajto.txt"
+path = "../resources/Forrasok/4_Tarsalgo/ajto.txt"  # Relative paths are relative to current working directory
 
 entries = []
 
 # read file from local directory
-file = open(filename)
+file = open(path)
 for line in file.readlines():
     entries.append(line.strip())
 
