@@ -1,11 +1,26 @@
-from FileDeserializer import FileDeserializer
+filename = "ajto.txt"
 
+entries = []
 
-# 1
-def deserialize_file(filename):
-    deserializer = FileDeserializer(filename)
-    return deserializer.deserialize()
+# read file from local directory
+file = open(filename)
+for line in file.readlines():
+    entries.append(line.strip())
 
+print(f"Entries: {entries}")  # string interpolation
 
-for i in deserialize_file("ajto.txt"):
-    print(str(i))
+# First entry to the room:
+first_entry = entries[0]  # first must be an entering entry
+
+# split by white space (default)
+entry_tokens = first_entry.split()
+
+first_actor_id = entry_tokens[2]
+print(f"First actor id to enter the room: {first_actor_id}")
+
+for entry in reversed(entries):
+    entry_tokens = entry.split()
+    if entry_tokens[3] == "ki":
+        last_actor_id = entry_tokens[2]
+        print(f"Last actor id to exit {last_actor_id}")
+        break  # break the execution of the loop since the last actor id is already found
