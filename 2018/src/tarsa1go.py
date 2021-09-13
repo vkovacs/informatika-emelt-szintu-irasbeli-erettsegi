@@ -55,3 +55,45 @@ print("4: Actors still in the room:")
 for actor_id in actor_id_door_pass_count_dict:
     if actor_id_door_pass_count_dict[actor_id] % 2 == 1:  # actors in the room are the actors whose door pass count are odd
         print(actor_id)
+
+# 5
+max_actor_count_in_room = 0
+at = ""
+actor_count_in_room = 0
+for entry in entries:
+    entry_tokens = entry.split()
+    hour = entry_tokens[0]
+    minute = entry_tokens[1]
+    actor_id = entry_tokens[2]
+    direction = entry_tokens[3]
+
+    if direction == "be":
+        actor_count_in_room += 1
+
+        if actor_count_in_room > max_actor_count_in_room:
+            max_actor_count_in_room = actor_count_in_room
+            at = hour + ":" + minute
+    else:
+        actor_count_in_room -= 1
+
+print(f"5: Most actor simultaneously in the room: {max_actor_count_in_room} at: {at}")
+
+# 6
+print("6: Please type an existing actor_id:")
+input_actor_id = input()  # read input as string by default
+
+# 7
+print("Actor's sessions in the room:")
+
+entries_for_actor = filter(lambda entry: entry.split()[2] == input_actor_id, entries)  # use lambda function to filter for entries of an actor
+
+for entry in entries_for_actor:
+    entry_tokens = entry.split()
+    hour = entry_tokens[0]
+    minute = entry_tokens[1]
+    actor_id = entry_tokens[2]
+    direction = entry_tokens[3]
+    if direction == "be":
+        print(f"{hour}:{minute}-", end="") # keyword argument "end" is added to prevent print to terminate printing by line ending
+    else:
+        print(f"{hour}:{minute}")
