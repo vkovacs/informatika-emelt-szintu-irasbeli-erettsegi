@@ -53,5 +53,5 @@ output_file.close()
 # 4
 print("4: Actors still in the room:")
 for actor_id in actor_id_door_pass_count_dict:
-    if actor_id_door_pass_count_dict[actor_id] % 2 == 1:
+    if actor_id_door_pass_count_dict[actor_id] % 2 == 1:  # actors in the room are the actors whose door pass count are odd
         print(actor_id)
