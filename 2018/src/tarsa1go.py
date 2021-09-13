@@ -41,10 +41,17 @@ for entry in entries:
     else:
         actor_id_door_pass_count_dict[actor_id] = 1
 
+
 output_file_path = "athaladas.txt"
-output_file = open(output_file_path, "a")
+output_file = open(output_file_path, "w") #  by using 'w' flag file will be created if not exists, if exists content will be overwritten
 
 for actor_id in sorted(actor_id_door_pass_count_dict):  # this sorted method call uses to int() cast
-    output_file.write(f"{actor_id} {actor_id_door_pass_count_dict[actor_id]}\n")
+    output_file.write(f"{actor_id} {actor_id_door_pass_count_dict[actor_id]}\n")  # "\n" is for breaking the line
 
 output_file.close()
+
+# 4
+print("4: Actors still in the room:")
+for actor_id in actor_id_door_pass_count_dict:
+    if actor_id_door_pass_count_dict[actor_id] % 2 == 1:
+        print(actor_id)
