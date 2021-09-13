@@ -85,15 +85,48 @@ input_actor_id = input()  # read input as string by default
 # 7
 print("Actor's sessions in the room:")
 
-entries_for_actor = filter(lambda entry: entry.split()[2] == input_actor_id, entries)  # use lambda function to filter for entries of an actor
+entries_for_actor = list(filter(lambda entry: entry.split()[2] == input_actor_id, entries))  # use lambda function to filter for entries of an actor and store it in a list for future use (otherwise it would be consumed on the first iteration)
 
 for entry in entries_for_actor:
     entry_tokens = entry.split()
     hour = entry_tokens[0]
     minute = entry_tokens[1]
-    actor_id = entry_tokens[2]
     direction = entry_tokens[3]
     if direction == "be":
         print(f"{hour}:{minute}-", end="") # keyword argument "end" is added to prevent print to terminate printing by line ending
     else:
         print(f"{hour}:{minute}")
+
+# 8
+entry_times = [] # will only contain time typed values for time span calculation
+for entry in entries_for_actor:
+    entry_tokens = entry.split()
+    hour = entry_tokens[0].zfill(2)  # fill it by trailing zeros if necessary because time api needs hours in such format
+    minute = entry_tokens[1].zfill(2) # fill it by trailing zeros if necessary because time api needs minutes in such format
+    direction = entry_tokens[3]
+
+    from datetime import datetime  # import should be on the top line but it's here to do not confuse anyone while studiing the previous solutions
+
+    entry_time = datetime.strptime(f"{hour}:{minute}", "%H:%M")  # convert string to time
+    entry_times.append(entry_time)
+
+
+total_seconds_in_room = 0
+stayed_in_the_room = (len(entry_times) % 2 == 1)
+
+if stayed_in_the_room:  # if the actor was in the room at the end of the observation add 15:00 as the last time
+    entry_times.append(datetime.strptime("15:00", "%H:%M"))
+
+last_time = entry_times[0]
+for i in range(1, len(entry_times)):
+    current_time = entry_times[i]
+    if i % 2 == 1:
+        total_seconds_in_room += (current_time - last_time).total_seconds() # in case actor exit the room calculate the length of the session in this room and acumulate it in total_seconds_in_room
+    else:
+        last_time = current_time
+
+print()
+print(f"8: Actor by id {input_actor_id} was in the room for {total_seconds_in_room / 60} minutes", end=" ")
+if stayed_in_the_room:
+    print("and he was in the room in the end of the observation.")
+
