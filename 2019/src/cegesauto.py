@@ -43,7 +43,8 @@ for entry in reversed(car_lending_entries):
         break
 
 # 3
-examined_day = input("Nap: ")
+# examined_day = input("Nap: ")
+examined_day = 4
 print(f"Forgalom a(z) {examined_day} napot: ")
 
 for entry in car_lending_entries:
@@ -60,3 +61,37 @@ for entry in reversed(car_lending_entries):
         exited_cars.add(entry.license_plate_number)
 
 print(f"A hónap végén {len(not_exited_cars)} autót nem hoztak vissza!")
+
+# 5
+entries_by_car = {} # key will be a string and the value will be a list of strings
+
+for entry in car_lending_entries:
+    actual_license_plate_number = entry.license_plate_number
+
+    if actual_license_plate_number in entries_by_car:
+        entries_by_car[actual_license_plate_number].append(entry)
+    else:
+        entries_by_car[actual_license_plate_number] = [entry]
+
+car_distanced_travel = {}
+
+for license_plate_number in entries_by_car:
+    sum_distance = 0
+    entries_for_car = entries_by_car[license_plate_number]
+
+    entries_by_car_count = len(entries_for_car)
+    if entries_by_car_count % 2 == 1:
+        entries_by_car_count -= 1
+
+    last_km_counter_position = entries_for_car[0].km_counter_position
+    for i in range(1, entries_by_car_count):
+        if i % 2 == 1:
+            sum_distance += int(entries_for_car[i].km_counter_position) - int(last_km_counter_position)
+        else:
+            last_km_counter_position = entries_for_car[i].km_counter_position
+
+    car_distanced_travel[license_plate_number] = sum_distance
+
+print("5. feladat")
+for i in sorted(car_distanced_travel):
+    print(f"{i} {car_distanced_travel[i]} km")
