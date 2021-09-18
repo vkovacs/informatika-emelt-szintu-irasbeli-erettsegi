@@ -45,8 +45,7 @@ for entry in reversed(car_lending_entries):
         break
 
 # 3
-# examined_day = input("Nap: ")
-examined_day = 4
+examined_day = input("Nap: ")
 print(f"Forgalom a(z) {examined_day} napot: ")
 
 for entry in car_lending_entries:
@@ -65,7 +64,7 @@ for entry in reversed(car_lending_entries):
 print(f"A hónap végén {len(not_exited_cars)} autót nem hoztak vissza!")
 
 # 5
-entries_by_car = {} # key will be a string and the value will be a list of strings
+entries_by_car = {}  # key will be a string and the value will be a list of strings
 
 for entry in car_lending_entries:
     actual_license_plate_number = entry.license_plate_number
@@ -111,7 +110,7 @@ for i in sorted(car_distanced_travel):
 print(f"A leghosszabb út: {max_distance} km, személy: {employee_id}")
 
 # 7
-actual_license_plate_number = "CEG304"
+actual_license_plate_number = input("Rendszám: ")
 file_out = open(actual_license_plate_number + "_menetlevel.txt", "w")
 
 entries_for_car = entries_by_car[actual_license_plate_number]
@@ -132,3 +131,5 @@ for i in range(1, len(entries_for_car)):
 if car_exit_string != "":
     file_out.write(car_exit_string)  # the car is not returned but the exit string needs to be written into the file
 file_out.close()
+
+print("Menetlevél kész.")
