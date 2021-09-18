@@ -1,9 +1,6 @@
 from enum import Enum
 
 
-# 1
-
-
 class Direction(Enum):
     BE = 0
     KI = 1
@@ -35,6 +32,7 @@ class CarLendingEntry:
                self.employee_id + " " + self.km_counter_position + " " + str(self.direction)
 
 
+# 1
 file = open("../resources/Forrasok/4_Ceges_autok/autok.txt")
 
 car_lending_entries = []
@@ -59,7 +57,6 @@ for entry in car_lending_entries:
         print(f"{entry.timestamp} {entry.license_plate_number} {entry.employee_id}, {entry.direction.in_hungarian()}")
 
 # 4
-
 exited_cars = set()
 not_exited_cars = set()
 for entry in reversed(car_lending_entries):
