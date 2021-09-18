@@ -75,6 +75,9 @@ for entry in car_lending_entries:
 
 car_distanced_travel = {}
 
+max_distance = -1 # 6
+employee_id = -1 # 6
+
 for license_plate_number in entries_by_car:
     sum_distance = 0
     entries_for_car = entries_by_car[license_plate_number]
@@ -86,7 +89,13 @@ for license_plate_number in entries_by_car:
     last_km_counter_position = entries_for_car[0].km_counter_position
     for i in range(1, entries_by_car_count):
         if i % 2 == 1:
-            sum_distance += int(entries_for_car[i].km_counter_position) - int(last_km_counter_position)
+            distance = int(entries_for_car[i].km_counter_position) - int(last_km_counter_position)
+            sum_distance += distance
+            # 6
+            if distance > max_distance:  # 6
+                max_distance = distance  # 6
+                employee_id = entries_for_car[i].employee_id  # 6
+
         else:
             last_km_counter_position = entries_for_car[i].km_counter_position
 
@@ -95,3 +104,6 @@ for license_plate_number in entries_by_car:
 print("5. feladat")
 for i in sorted(car_distanced_travel):
     print(f"{i} {car_distanced_travel[i]} km")
+
+# 6
+print(f"A leghosszabb út: {max_distance} km, személy: {employee_id}")
