@@ -57,3 +57,15 @@ print(f"Forgalom a(z) {examined_day} napot: ")
 for entry in car_lending_entries:
     if entry.day == examined_day:
         print(f"{entry.timestamp} {entry.license_plate_number} {entry.employee_id}, {entry.direction.in_hungarian()}")
+
+# 4
+
+exited_cars = set()
+not_exited_cars = set()
+for entry in reversed(car_lending_entries):
+    if entry.direction == Direction.BE and entry.license_plate_number not in exited_cars:
+        not_exited_cars.add(entry.license_plate_number)
+    else:
+        exited_cars.add(entry.license_plate_number)
+
+print(f"A hónap végén {len(not_exited_cars)} autót nem hoztak vissza!")
