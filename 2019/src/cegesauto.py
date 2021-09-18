@@ -6,13 +6,7 @@ class Direction(Enum):
     KI = 1
 
     def __str__(self):
-        return str(self.value)
-
-    def in_hungarian(self):
-        if self == Direction.BE:
-            return "be"
-        else:
-            return "ki"
+        return str(self.name).lower()
 
 
 class CarLendingEntry:
@@ -54,7 +48,7 @@ print(f"Forgalom a(z) {examined_day} napot: ")
 
 for entry in car_lending_entries:
     if entry.day == examined_day:
-        print(f"{entry.timestamp} {entry.license_plate_number} {entry.employee_id}, {entry.direction.in_hungarian()}")
+        print(f"{entry.timestamp} {entry.license_plate_number} {entry.employee_id}, {entry.direction}")
 
 # 4
 exited_cars = set()
