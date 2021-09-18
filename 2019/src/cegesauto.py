@@ -34,6 +34,8 @@ for entry in file:
     car_lending_entries.append(
         CarLendingEntry(entry.split()[0], entry.split()[1], entry.split()[2], entry.split()[3], entry.split()[4],
                         entry.split()[5]))
+
+file.close()
 # 2
 
 for entry in reversed(car_lending_entries):
@@ -75,8 +77,8 @@ for entry in car_lending_entries:
 
 car_distanced_travel = {}
 
-max_distance = -1 # 6
-employee_id = -1 # 6
+max_distance = -1  # 6
+employee_id = -1  # 6
 
 for license_plate_number in entries_by_car:
     sum_distance = 0
@@ -107,3 +109,26 @@ for i in sorted(car_distanced_travel):
 
 # 6
 print(f"A leghosszabb út: {max_distance} km, személy: {employee_id}")
+
+# 7
+actual_license_plate_number = "CEG304"
+file_out = open(actual_license_plate_number + "_menetlevel.txt", "w")
+
+entries_for_car = entries_by_car[actual_license_plate_number]
+
+last_entry_day = entries_for_car[0].day
+last_timestamp = entries_for_car[0].timestamp
+last_km_counter_position = entries_for_car[0].km_counter_position
+
+car_exit_string = f"{entries_for_car[0].employee_id}    {entries_for_car[0].day}.    {entries_for_car[0].timestamp}    {entries_for_car[0].km_counter_position}km"
+for i in range(1, len(entries_for_car)):
+    entry = entries_for_car[i]
+    if i % 2 == 1:
+        file_out.write(f"{car_exit_string}    {entry.day}.    {entry.timestamp}   {entry.km_counter_position}km \n")
+        car_exit_string = ""
+    else:
+        car_exit_string = f"{entry.employee_id}    {entry.day}    {entry.timestamp}    {entry.km_counter_position}km"
+
+if car_exit_string != "":
+    file_out.write(car_exit_string)  # the car is not returned but the exit string needs to be written into the file
+file_out.close()
