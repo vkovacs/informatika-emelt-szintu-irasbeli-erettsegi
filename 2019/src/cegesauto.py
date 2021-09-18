@@ -64,72 +64,68 @@ for entry in reversed(car_lending_entries):
 print(f"A hónap végén {len(not_exited_cars)} autót nem hoztak vissza!")
 
 # 5
-entries_by_car = {}  # key will be a string and the value will be a list of strings
+entries_grouped_by_car = {}  # key will be a string and the value will be a list of strings
 
 for entry in car_lending_entries:
     actual_license_plate_number = entry.license_plate_number
 
-    if actual_license_plate_number in entries_by_car:
-        entries_by_car[actual_license_plate_number].append(entry)
+    if actual_license_plate_number in entries_grouped_by_car:
+        entries_grouped_by_car[actual_license_plate_number].append(entry)
     else:
-        entries_by_car[actual_license_plate_number] = [entry]
+        entries_grouped_by_car[actual_license_plate_number] = [entry]
 
 car_distanced_travel = {}
 
-max_distance = -1  # 6
-employee_id = -1  # 6
+max_distance_travelled_by_any_car = -1  # 6
+employee_id_who_driven_the_max_distance = -1  # 6
 
-for license_plate_number in entries_by_car:
+for license_plate_number in entries_grouped_by_car:
     sum_distance = 0
-    entries_for_car = entries_by_car[license_plate_number]
+    entries_for_car = entries_grouped_by_car[license_plate_number]
 
-    entries_by_car_count = len(entries_for_car)
-    if entries_by_car_count % 2 == 1:
-        entries_by_car_count -= 1
+    entries_for_car_count = len(entries_for_car)
+    if entries_for_car_count % 2 == 1:
+        entries_for_car_count -= 1
 
     last_km_counter_position = entries_for_car[0].km_counter_position
-    for i in range(1, entries_by_car_count):
+    for i in range(1, entries_for_car_count):
         if i % 2 == 1:
             distance = int(entries_for_car[i].km_counter_position) - int(last_km_counter_position)
             sum_distance += distance
             # 6
-            if distance > max_distance:  # 6
-                max_distance = distance  # 6
-                employee_id = entries_for_car[i].employee_id  # 6
-
+            if distance > max_distance_travelled_by_any_car:  # 6
+                max_distance_travelled_by_any_car = distance  # 6
+                employee_id_who_driven_the_max_distance = entries_for_car[i].employee_id  # 6
         else:
             last_km_counter_position = entries_for_car[i].km_counter_position
 
     car_distanced_travel[license_plate_number] = sum_distance
 
 print("5. feladat")
-for i in sorted(car_distanced_travel):
-    print(f"{i} {car_distanced_travel[i]} km")
+for license_plate_number in sorted(car_distanced_travel):
+    print(f"{license_plate_number} {car_distanced_travel[license_plate_number]} km")
 
 # 6
-print(f"A leghosszabb út: {max_distance} km, személy: {employee_id}")
+print(f"A leghosszabb út: {max_distance_travelled_by_any_car} km, személy: {employee_id_who_driven_the_max_distance}")
 
 # 7
 actual_license_plate_number = input("Rendszám: ")
 file_out = open(actual_license_plate_number + "_menetlevel.txt", "w")
 
-entries_for_car = entries_by_car[actual_license_plate_number]
+entries_for_car = entries_grouped_by_car[actual_license_plate_number]
 
-last_entry_day = entries_for_car[0].day
-last_timestamp = entries_for_car[0].timestamp
-last_km_counter_position = entries_for_car[0].km_counter_position
-
-car_exit_string = f"{entries_for_car[0].employee_id}    {entries_for_car[0].day}.    {entries_for_car[0].timestamp}    {entries_for_car[0].km_counter_position}km"
+car_exit_the_site_string = f"{entries_for_car[0].employee_id}    {entries_for_car[0].day}.    {entries_for_car[0].timestamp}    {entries_for_car[0].km_counter_position}km"
 for i in range(1, len(entries_for_car)):
     entry = entries_for_car[i]
     if i % 2 == 1:
-        file_out.write(f"{car_exit_string}    {entry.day}.    {entry.timestamp}   {entry.km_counter_position}km \n")
-        car_exit_string = ""
+        car_arrives_back_to_site_string = f"{entry.day}.    {entry.timestamp}   {entry.km_counter_position}km"
+        file_out.write(f"{car_exit_the_site_string}     {car_arrives_back_to_site_string}\n")
+        car_exit_the_site_string = ""
     else:
-        car_exit_string = f"{entry.employee_id}    {entry.day}    {entry.timestamp}    {entry.km_counter_position}km"
+        car_exit_the_site_string = f"{entry.employee_id}    {entry.day}    {entry.timestamp}    {entry.km_counter_position}km"
 
-if car_exit_string != "":
-    file_out.write(car_exit_string)  # the car is not returned but the exit string needs to be written into the file
+if car_exit_the_site_string != "":
+    file_out.write(car_exit_the_site_string)  # the car is not returned but the exit string needs to be written into the file
 file_out.close()
 
 print("Menetlevél kész.")
