@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 # 1
 
 
@@ -10,16 +11,21 @@ class Direction(Enum):
     def __str__(self):
         return str(self.value)
 
+    def in_hungarian(self):
+        if self == Direction.BE:
+            return "be"
+        else:
+            return "ki"
+
 
 class CarLendingEntry:
-
     def __init__(self, day, timestamp, license_plate_number, employee_id, km_counter_position, direction):
         self.day = day
         self.timestamp = timestamp
         self.license_plate_number = license_plate_number
         self.employee_id = employee_id
         self.km_counter_position = km_counter_position
-        if direction == "be":
+        if direction == "0":
             self.direction = Direction.BE
         else:
             self.direction = Direction.KI
@@ -43,4 +49,11 @@ for entry in reversed(car_lending_entries):
         print("2. feladat")
         print(f"{entry.day}.nap rendszám: {entry.license_plate_number}")
         break
-#3
+
+# 3
+examined_day = input("Nap: ")
+print(f"Forgalom a(z) {examined_day} napot: ")
+
+for entry in car_lending_entries:
+    if entry.day == examined_day:
+        print(f"{entry.timestamp} {entry.license_plate_number} {entry.employee_id}, {entry.direction.in_hungarian()}")
