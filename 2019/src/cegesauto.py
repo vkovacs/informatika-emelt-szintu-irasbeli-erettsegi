@@ -87,17 +87,13 @@ for license_plate_number in entries_grouped_by_car:
     if entries_for_car_count % 2 == 1:
         entries_for_car_count -= 1
 
-    last_km_counter_position = entries_for_car[0].km_counter_position
-    for i in range(1, entries_for_car_count):
-        if i % 2 == 1:
-            distance = int(entries_for_car[i].km_counter_position) - int(last_km_counter_position)
-            sum_distance += distance
-            # 6
-            if distance > max_distance_travelled_by_any_car:  # 6
-                max_distance_travelled_by_any_car = distance  # 6
-                employee_id_who_driven_the_max_distance = entries_for_car[i].employee_id  # 6
-        else:
-            last_km_counter_position = entries_for_car[i].km_counter_position
+    for i in range(1, entries_for_car_count, 2):
+        distance = int(entries_for_car[i].km_counter_position) - int(entries_for_car[i - 1].km_counter_position)
+        sum_distance += distance
+        # 6
+        if distance > max_distance_travelled_by_any_car:  # 6
+            max_distance_travelled_by_any_car = distance  # 6
+            employee_id_who_driven_the_max_distance = entries_for_car[i].employee_id  # 6
 
     car_distanced_travel[license_plate_number] = sum_distance
 
@@ -114,15 +110,15 @@ file_out = open(actual_license_plate_number + "_menetlevel.txt", "w")
 
 entries_for_car = entries_grouped_by_car[actual_license_plate_number]
 
-car_exit_the_site_string = f"{entries_for_car[0].employee_id}    {entries_for_car[0].day}.    {entries_for_car[0].timestamp}    {entries_for_car[0].km_counter_position}km"
 for i in range(1, len(entries_for_car)):
     entry = entries_for_car[i]
     if i % 2 == 1:
-        car_arrives_back_to_site_string = f"{entry.day}.    {entry.timestamp}   {entry.km_counter_position}km"
+        car_exit_the_site_string = f"{entries_for_car[i - 1].employee_id}    {entries_for_car[i - 1].day}.    {entries_for_car[i - 1].timestamp}    {entries_for_car[i - 1].km_counter_position}km"
+        car_arrives_back_to_site_string = f"{entry.day}.    {entry.timestamp}   {entry.km_counter_position} km"
         file_out.write(f"{car_exit_the_site_string}     {car_arrives_back_to_site_string}\n")
         car_exit_the_site_string = ""
     else:
-        car_exit_the_site_string = f"{entry.employee_id}    {entry.day}    {entry.timestamp}    {entry.km_counter_position}km"
+        car_exit_the_site_string = f"{entry.employee_id}    {entry.day}    {entry.timestamp}    {entry.km_counter_position} km"
 
 if car_exit_the_site_string != "":
     file_out.write(car_exit_the_site_string)  # the car is not returned but the exit string needs to be written into the file
