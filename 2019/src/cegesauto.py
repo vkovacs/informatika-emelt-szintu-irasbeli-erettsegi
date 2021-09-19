@@ -2,8 +2,8 @@ from enum import Enum
 
 
 class Direction(Enum):
-    BE = 0
-    KI = 1
+    BE = 1
+    KI = 0
 
     def __str__(self):
         return str(self.name).lower()
@@ -16,7 +16,7 @@ class CarLendingEntry:
         self.license_plate_number = license_plate_number
         self.employee_id = employee_id
         self.km_counter_position = km_counter_position
-        if direction == "0":
+        if direction == "1":
             self.direction = Direction.BE
         else:
             self.direction = Direction.KI
@@ -110,18 +110,22 @@ file_out = open(actual_license_plate_number + "_menetlevel.txt", "w")
 
 entries_for_car = entries_grouped_by_car[actual_license_plate_number]
 
-for i in range(1, len(entries_for_car)):
-    entry = entries_for_car[i]
-    if i % 2 == 1:
-        car_exit_the_site_string = f"{entries_for_car[i - 1].employee_id}    {entries_for_car[i - 1].day}.    {entries_for_car[i - 1].timestamp}    {entries_for_car[i - 1].km_counter_position}km"
-        car_arrives_back_to_site_string = f"{entry.day}.    {entry.timestamp}   {entry.km_counter_position} km"
-        file_out.write(f"{car_exit_the_site_string}     {car_arrives_back_to_site_string}\n")
-        car_exit_the_site_string = ""
-    else:
-        car_exit_the_site_string = f"{entry.employee_id}    {entry.day}    {entry.timestamp}    {entry.km_counter_position} km"
 
-if car_exit_the_site_string != "":
-    file_out.write(car_exit_the_site_string)  # the car is not returned but the exit string needs to be written into the file
+def to_string(day, timestamp, km_counter_position):
+    return f"{day}.    {timestamp}    {km_counter_position} km"
+
+
+for i in range(1, len(entries_for_car), 2):
+    car_exits_the_site_string = f"{entries_for_car[i - 1].employee_id}    " + to_string(entries_for_car[i - 1].day, entries_for_car[i - 1].timestamp, entries_for_car[i - 1].km_counter_position)
+    car_arrives_back_to_site_string = to_string(entries_for_car[i].day, entries_for_car[i].timestamp, entries_for_car[i].km_counter_position)
+
+    file_out.write(f"{car_exits_the_site_string}     {car_arrives_back_to_site_string}\n")
+
+# if there is a car which is not returned to the site but exited it, it also needs to be added to the file
+if len(entries_for_car) % 2 == 1:  # even number of entries means a car is exited and never returned
+    last_index = len(entries_for_car) - 1
+    car_exits_the_site_string = f"{entries_for_car[last_index].employee_id}    " + to_string(entries_for_car[last_index].day, entries_for_car[last_index].timestamp, entries_for_car[last_index].km_counter_position)
+    file_out.write(car_exits_the_site_string)
 file_out.close()
 
 print("Menetlevél kész.")
