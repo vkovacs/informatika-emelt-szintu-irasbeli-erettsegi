@@ -111,19 +111,17 @@ for entry in entries_for_actor:
     entry_times.append(entry_time)
 
 
+# preprocess entry_time to make sure it contains even number of elements
 total_seconds_in_room = 0
 stayed_in_the_room = (len(entry_times) % 2 == 1)
 
 if stayed_in_the_room:  # if the actor was in the room at the end of the observation add 15:00 as the last time
     entry_times.append(datetime.strptime("15:00", "%H:%M"))
 
-last_time = entry_times[0]
-for i in range(1, len(entry_times)):
+for i in range(1, len(entry_times), 2):
     current_time = entry_times[i]
-    if i % 2 == 1:
-        total_seconds_in_room += (current_time - last_time).total_seconds() # in case actor exit the room calculate the length of the session in this room and acumulate it in total_seconds_in_room
-    else:
-        last_time = current_time
+    last_time = entry_times[i - 1]
+    total_seconds_in_room += (current_time - last_time).total_seconds() # in case actor exit the room calculate the length of the session in this room and acumulate it in total_seconds_in_room
 
 print()
 print(f"8: Actor by id {input_actor_id} was in the room for {total_seconds_in_room / 60} minutes", end=" ")
