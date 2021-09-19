@@ -83,11 +83,7 @@ for license_plate_number in entries_grouped_by_car:
     sum_distance = 0
     entries_for_car = entries_grouped_by_car[license_plate_number]
 
-    entries_for_car_count = len(entries_for_car)
-    if entries_for_car_count % 2 == 1:
-        entries_for_car_count -= 1
-
-    for i in range(1, entries_for_car_count, 2):
+    for i in range(1, len(entries_for_car), 2):
         distance = int(entries_for_car[i].km_counter_position) - int(entries_for_car[i - 1].km_counter_position)
         sum_distance += distance
         # 6
