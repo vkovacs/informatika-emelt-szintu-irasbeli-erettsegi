@@ -45,3 +45,12 @@ def determine_sub_matrix_number(row_index, col_index):
 
 print("A hely a(z) " + str(determine_sub_matrix_number(selected_row_index, selected_col_index)) + ". résztáblázathoz tartozik.")
 
+print("Feladat 4.")
+
+zero_count = 0
+for i in range(sudo_matrix_max_col_size):
+    for j in range(sudo_matrix_max_row_size):
+        if sudoku_matrix[i][j] == 0:
+            zero_count = zero_count + 1
+
+print("Az üres helyek aránya: " + str(round((zero_count / 81) * 100, 1)))
