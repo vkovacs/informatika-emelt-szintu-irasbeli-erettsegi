@@ -89,6 +89,14 @@ def positions_in_selected_sub_matrix(sub_matrix):  # not effective solution
     return positions
 
 
+def validate_positions(positions):
+    for position in positions:
+        if sudoku_matrix[position[0]][position[1]] == move_value:
+            return False
+
+    return True
+
+
 for move in move_list:
     move_value = move[0]
     move_row_index = move[1] - 1  # -1 is there since this is going to be an index of the sudoku_matrix which is indexed from 0 not 1
@@ -96,3 +104,18 @@ for move in move_list:
 
     if sudoku_matrix[move_row_index][move_col_index] != 0:
         print("A helyet már kitöltötték")
+        break
+
+    if not validate_positions(positions_in_selected_row(move_row_index)):
+        print("Az adott sorban már szerepel a szám!")
+        break
+
+    if not validate_positions(positions_in_selected_col(move_col_index)):
+        print("Az adott oszlopban már szerepel a szám!")
+        break
+
+    if not validate_positions(positions_in_selected_sub_matrix(determine_sub_matrix_number(move_row_index, move_col_index))):
+        print("Az adott résztáblázatban már szerepel a szám!")
+        break
+
+    print("A lépés megtehető!")
