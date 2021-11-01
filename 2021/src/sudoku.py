@@ -1,7 +1,6 @@
 print("1. feladat")
 
-# input_file_name = input("Adja meg a bemeneti file nevét: ")
-input_file_name = "konnyu.txt"
+input_file_name = input("Adja meg a bemeneti file nevét: ")
 
 input_file_path = "../resources/Forrasok/4_Sudoku/" + input_file_name
 
@@ -102,20 +101,21 @@ for move in move_list:
     move_row_index = move[1] - 1  # -1 is there since this is going to be an index of the sudoku_matrix which is indexed from 0 not 1
     move_col_index = move[2] - 1
 
+    print(f"A kiválasztott sor {move[1]}: oszlop {move[2]}, a megadott szám: {move_value}")
     if sudoku_matrix[move_row_index][move_col_index] != 0:
         print("A helyet már kitöltötték")
-        break
+        continue
 
     if not validate_positions(positions_in_selected_row(move_row_index)):
         print("Az adott sorban már szerepel a szám!")
-        break
+        continue
 
     if not validate_positions(positions_in_selected_col(move_col_index)):
         print("Az adott oszlopban már szerepel a szám!")
-        break
+        continue
 
     if not validate_positions(positions_in_selected_sub_matrix(determine_sub_matrix_number(move_row_index, move_col_index))):
         print("Az adott résztáblázatban már szerepel a szám!")
-        break
+        continue
 
     print("A lépés megtehető!")
