@@ -35,3 +35,13 @@ if value_in_selected_position > 0:
     print(value_in_selected_position)
 else:
     print("Az adott helyet még nem töltötték ki.")
+
+
+def determine_sub_matrix_number(row_num, col_num):
+    sub_matrix_number = (col_num // 4) + 1  # div https://www.geeksforgeeks.org/division-operator-in-python/
+    sub_matrix_number = sub_matrix_number + (row_num // 4) * 3
+    return sub_matrix_number
+
+
+print("A hely a(z) " + str(determine_sub_matrix_number(selected_row_num, selected_col_num)) + ". résztáblázathoz tartozik.")
+
