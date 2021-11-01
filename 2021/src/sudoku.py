@@ -37,11 +37,11 @@ else:
     print("Az adott helyet még nem töltötték ki.")
 
 
-def determine_sub_matrix_number(row_num, col_num):
-    sub_matrix_number = (col_num // 4) + 1  # div https://www.geeksforgeeks.org/division-operator-in-python/
-    sub_matrix_number = sub_matrix_number + (row_num // 4) * 3
+def determine_sub_matrix_number(row_index, col_index):
+    sub_matrix_number = (col_index // 3) + 1  # div https://www.geeksforgeeks.org/division-operator-in-python/
+    sub_matrix_number = sub_matrix_number + (row_index // 3) * 3
     return sub_matrix_number
 
 
-print("A hely a(z) " + str(determine_sub_matrix_number(selected_row_num, selected_col_num)) + ". résztáblázathoz tartozik.")
+print("A hely a(z) " + str(determine_sub_matrix_number(selected_row_index, selected_col_index)) + ". résztáblázathoz tartozik.")
 
