@@ -7,16 +7,18 @@ input_file_path = "../resources/Forrasok/4_Sudoku/" + input_file_name
 
 input_file = open(input_file_path)
 
-sudo_matrix_max_row_size = 9
-sudo_matrix_max_col_size = 9
+sudoku_matrix_max_row_size = 9
+sudoku_matrix_max_col_size = 9
 
-sudoku_matrix = [[0] * sudo_matrix_max_col_size] * sudo_matrix_max_row_size # https://www.geeksforgeeks.org/python-using-2d-arrays-lists-the-right-way/
+sudoku_matrix = [[
+                     0] * sudoku_matrix_max_col_size] * sudoku_matrix_max_row_size  # https://www.geeksforgeeks.org/python-using-2d-arrays-lists-the-right-way/
 
 move_list = []
 
 line_counter = 0
 for line in input_file.readlines():
-    split_line = list(map(int, line.split())) # we want a matrix which contains ints not strings: https://stackoverflow.com/a/6429930
+    split_line = list(
+        map(int, line.split()))  # we want a matrix which contains ints not strings: https://stackoverflow.com/a/6429930
 
     if len(split_line) == 9:
         sudoku_matrix[line_counter] = split_line
@@ -29,7 +31,7 @@ selected_col_num = int(input("Adja meg egy oszlop számát: "))
 selected_row_index = selected_row_num - 1
 selected_col_index = selected_col_num - 1
 
-print("2. feladat")
+print("3. feladat")
 print("Az adott helyen szereplő szám: ")
 value_in_selected_position = sudoku_matrix[selected_row_index][selected_col_index]
 
@@ -45,14 +47,52 @@ def determine_sub_matrix_number(row_index, col_index):
     return sub_matrix_number
 
 
-print("A hely a(z) " + str(determine_sub_matrix_number(selected_row_index, selected_col_index)) + ". résztáblázathoz tartozik.")
+print("A hely a(z) " + str(
+    determine_sub_matrix_number(selected_row_index, selected_col_index)) + ". résztáblázathoz tartozik.")
 
-print("Feladat 4.")
+print("4. Feladat")
 
 zero_count = 0
-for i in range(sudo_matrix_max_col_size):
-    for j in range(sudo_matrix_max_row_size):
+for i in range(sudoku_matrix_max_col_size):
+    for j in range(sudoku_matrix_max_row_size):
         if sudoku_matrix[i][j] == 0:
             zero_count = zero_count + 1
 
 print("Az üres helyek aránya: " + str(round((zero_count / 81) * 100, 1)))
+
+print("5. Feladat")
+
+
+def positions_in_selected_row(row_index):
+    positions = []
+    for i in range(9):
+        positions.append((row_index, i))
+
+    return positions
+
+
+def positions_in_selected_col(col_index):
+    positions = []
+    for i in range(9):
+        positions.append((i, col_index))
+
+    return positions
+
+
+def positions_in_selected_sub_matrix(sub_matrix):  # not effective solution
+    positions = []
+    for i in range(sudoku_matrix_max_row_size):
+        for j in range(sudoku_matrix_max_col_size):
+            if determine_sub_matrix_number(i, j) == sub_matrix:
+                positions.append((i, j))
+
+    return positions
+
+
+for move in move_list:
+    move_value = move[0]
+    move_row_index = move[1] - 1  # -1 is there since this is going to be an index of the sudoku_matrix which is indexed from 0 not 1
+    move_col_index = move[2] - 1
+
+    if sudoku_matrix[move_row_index][move_col_index] != 0:
+        print("A helyet már kitöltötték")
