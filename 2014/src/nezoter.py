@@ -13,16 +13,10 @@ def read_file(path):
 reservations = read_file(base_path + "/foglaltsag.txt")
 price_categories = read_file(base_path + "/kategoria.txt")
 
-print(reservations)
-print(price_categories)
-
 # 2
 
-# line = int(input("Sor: "))
-# col = int(input("Sorszám: "))
-
-line = 1
-col = 1
+line = int(input("Sor: "))
+col = int(input("Sorszám: "))
 
 seat_status = "üres" if reservations[line - 1][col - 1] == "o" else "foglalt"
 print("A megadott szék " + seat_status)
@@ -87,3 +81,23 @@ for reservation_line in reservations:
     lonely_seat_count = lonely_seat_count + lonely_seat_count_in_this_row
 
 print(f"{lonely_seat_count} egyedülálló szék van a nézőtéren")
+
+# 7
+customer_reservation_view = list()
+
+for i in range(len(reservations)):
+    merged_reservation_line = ""
+    for j in range(len(reservations[i])):
+        if reservations[i][j] == "x":
+            merged_reservation_line = merged_reservation_line + "x"
+        else:
+            price_category = price_categories[i][j]
+            merged_reservation_line = merged_reservation_line + price_category
+
+    customer_reservation_view.append(merged_reservation_line)
+
+customer_reservation_view_file = open("szabad.txt", "w")
+for reservation_line in customer_reservation_view:
+    customer_reservation_view_file.write("".join(reservation_line)+"\n")
+
+customer_reservation_view_file.close()
