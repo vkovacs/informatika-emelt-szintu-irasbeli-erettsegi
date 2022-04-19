@@ -15,3 +15,11 @@ price_categories = read_file(base_path + "/kategoria.txt")
 
 print(reservations)
 print(price_categories)
+
+# 2
+
+line = int(input("Sor: "))
+col = int(input("Sorszám: "))
+
+seat_status = "üres" if reservations[line - 1][col - 1] == "o" else "foglalt"
+print("A megadott szék " + seat_status)
