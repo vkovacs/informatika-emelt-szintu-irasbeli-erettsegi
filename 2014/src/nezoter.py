@@ -39,7 +39,6 @@ for i in range(len(reservations)):
             price_category = price_categories[i][j]
             reserved_seat_count_by_category[price_category] = reserved_seat_count_by_category.get(price_category, 0) + 1 # https://stackoverflow.com/a/12992212
 
-# print(reserved_seat_count_by_category)
 inverse_reserved_seat_count_by_category = [(value, key) for key, value in reserved_seat_count_by_category.items()]  # https://stackoverflow.com/q/268272
 
 print(f"A legtöbb jegyet a(z) {max(inverse_reserved_seat_count_by_category)[1]}. árkategóriában értékesítették.")
@@ -50,15 +49,15 @@ actual_income = 0
 for key in reserved_seat_count_by_category:
 
     if key == "1":
-        actual_income = actual_income + reserved_seat_count_by_category[key] * 5000
+        actual_income += reserved_seat_count_by_category[key] * 5000
     elif key == "2":
-        actual_income = actual_income + reserved_seat_count_by_category[key] * 4000
+        actual_income += reserved_seat_count_by_category[key] * 4000
     elif key == "3":
-        actual_income = actual_income + reserved_seat_count_by_category[key] * 3000
+        actual_income += reserved_seat_count_by_category[key] * 3000
     elif key == "4":
-        actual_income = actual_income + reserved_seat_count_by_category[key] * 2000
+        actual_income += reserved_seat_count_by_category[key] * 2000
     elif key == "5":
-        actual_income = actual_income + reserved_seat_count_by_category[key] * 1500
+        actual_income += reserved_seat_count_by_category[key] * 1500
 
 print(f"A pillanatnyi adatok alapján a színház bevétele {actual_income} Ft lenne.")
 
@@ -73,12 +72,12 @@ for reservation_line in reservations:
     lonely_seat_count_in_this_row = reservation_line_string.count("xox")
 
     if reservation_line_string[0:2] == "ox":
-        lonely_seat_count_in_this_row = lonely_seat_count_in_this_row + 1
+        lonely_seat_count_in_this_row += 1
 
     if reservation_line_string[-2:] == "xo":
-        lonely_seat_count_in_this_row = lonely_seat_count_in_this_row + 1
+        lonely_seat_count_in_this_row += 1
 
-    lonely_seat_count = lonely_seat_count + lonely_seat_count_in_this_row
+    lonely_seat_count += lonely_seat_count_in_this_row
 
 print(f"{lonely_seat_count} egyedülálló szék van a nézőtéren")
 
@@ -89,10 +88,10 @@ for i in range(len(reservations)):
     merged_reservation_line = ""
     for j in range(len(reservations[i])):
         if reservations[i][j] == "x":
-            merged_reservation_line = merged_reservation_line + "x"
+            merged_reservation_line += "x"
         else:
             price_category = price_categories[i][j]
-            merged_reservation_line = merged_reservation_line + price_category
+            merged_reservation_line += price_category
 
     customer_reservation_view.append(merged_reservation_line)
 
