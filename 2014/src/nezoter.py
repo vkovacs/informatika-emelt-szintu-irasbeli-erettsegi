@@ -67,3 +67,23 @@ for key in reserved_seat_count_by_category:
         actual_income = actual_income + reserved_seat_count_by_category[key] * 1500
 
 print(f"A pillanatnyi adatok alapján a színház bevétele {actual_income} Ft lenne.")
+
+# 6
+
+# https://blog.finxter.com/python-regex-how-to-count-the-number-of-matches/#:~:text=To%20count%20a%20regex%20pattern,length%20of%20it%20as%20well.
+
+lonely_seat_count = 0
+for reservation_line in reservations:
+    reservation_line_string = "".join(reservation_line)
+
+    lonely_seat_count_in_this_row = reservation_line_string.count("xox")
+
+    if reservation_line_string[0:2] == "ox":
+        lonely_seat_count_in_this_row = lonely_seat_count_in_this_row + 1
+
+    if reservation_line_string[-2:] == "xo":
+        lonely_seat_count_in_this_row = lonely_seat_count_in_this_row + 1
+
+    lonely_seat_count = lonely_seat_count + lonely_seat_count_in_this_row
+
+print(f"{lonely_seat_count} egyedülálló szék van a nézőtéren")
