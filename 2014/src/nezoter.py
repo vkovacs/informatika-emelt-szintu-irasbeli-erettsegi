@@ -35,3 +35,17 @@ for reservation_line in reservations:
     all_seats_count = all_seats_count + len(reservation_line)
 
 print(f"Az előadásra eddig {sum_reserved} jegyet adtak el, ez a nézőtér {round(sum_reserved / all_seats_count  * 100)} %-a.")
+
+# 4
+reserved_seat_count_by_category = {}
+
+for i in range(len(reservations)):
+    for j in range(len(reservations[i])):
+        if reservations[i][j] == "x":
+            price_category = price_categories[i][j]
+            reserved_seat_count_by_category[price_category] = reserved_seat_count_by_category.get(price_category, 0) + 1 # https://stackoverflow.com/a/12992212
+
+# print(reserved_seat_count_by_category)
+inverse_reserved_seat_count_by_category = [(value, key) for key, value in reserved_seat_count_by_category.items()] # https://stackoverflow.com/q/268272
+
+print(f"A legtöbb jegyet a(z) {max(inverse_reserved_seat_count_by_category)[1]}. árkategóriában értékesítették.")
