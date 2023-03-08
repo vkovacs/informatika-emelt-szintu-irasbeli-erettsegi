@@ -53,3 +53,16 @@ for key, value in sortedDayTalksDict.items():
     for talk in value:
         print(str(i) + "." + talk.speaker)
         i = i + 1
+
+# 3. feladat
+
+i = 1
+for key, value in sortedDayTalksDict.items():
+    durationSum = 0
+    for talk in value:
+        durationSum += talk.duration
+
+    print("{0}. nap: {1}:{2}".format(i, durationSum // 60, durationSum % 60))  # https://www.learndatasci.com/solutions/python-double-slash-operator-floor-division/
+    i = i + 1
+
+# 4. feladat
