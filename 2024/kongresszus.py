@@ -9,7 +9,8 @@ class Talk:
 
     def __init__(self, speaker, month, day, ordinal, duration, title, tools):
         self.speaker = speaker
-        self.month = int(month) # ha lehagyjuk az int-é konvertálást az első rendezésénél elromlik a sorrend mert string ként próbál majd rendezni
+        self.month = int(
+            month)  # ha lehagyjuk az int-é konvertálást az első rendezésénél elromlik a sorrend mert string ként próbál majd rendezni
         self.day = int(day)
         self.ordinal = int(ordinal)
         self.duration = int(duration)
@@ -62,7 +63,20 @@ for key, value in sortedDayTalksDict.items():
     for talk in value:
         durationSum += talk.duration
 
-    print("{0}. nap: {1}:{2}".format(i, durationSum // 60, durationSum % 60))  # https://www.learndatasci.com/solutions/python-double-slash-operator-floor-division/
+    print("{0}. nap: {1}:{2}".format(i, durationSum // 60,
+                                     durationSum % 60))  # https://www.learndatasci.com/solutions/python-double-slash-operator-floor-division/
     i = i + 1
 
 # 4. feladat
+maxDuration = -1
+longestTalks = []
+talksOnNov6 = sortedDayTalksDict[6]
+for talk in talksOnNov6:
+    if talk.duration > maxDuration:
+        longestTalks = [talk]
+        maxDuration = talk.duration
+    elif talk.duration == maxDuration:
+        longestTalks.append(talk)
+
+for talk in longestTalks:
+    print(talk.speaker + " " + str(talk.duration))
