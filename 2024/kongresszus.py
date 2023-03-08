@@ -110,3 +110,14 @@ for talk in day3Talks:
         break # Nem szeretnenk minden további aznapi eloadashoz is kiirni, hogy mikor volt ebedido. https://www.digitalocean.com/community/tutorials/how-to-use-break-continue-and-pass-statements-when-working-with-loops-in-python-3
 
 # 7. feladat
+speakerCountDict = {}
+for key, value in sortedDayTalksDict.items():
+    for talk in value:
+        if talk.speaker in speakerCountDict:
+            speakerCountDict[talk.speaker] += 1
+        else:
+            speakerCountDict[talk.speaker] = 1
+
+for key, value in speakerCountDict.items():
+    if value > 1:
+        print("{0} {1}".format(key, value))
