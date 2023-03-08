@@ -1,3 +1,6 @@
+import datetime
+
+
 class Talk:
     speaker = "",
     month = 0,
@@ -80,3 +83,21 @@ for talk in talksOnNov6:
 
 for talk in longestTalks:
     print(talk.speaker + " " + str(talk.duration))
+
+# 5. feladat
+
+dayStart = datetime.datetime(1900, 1, 1, 8, 0, 0)  # https://stackoverflow.com/a/100345
+for key, value in sortedDayTalksDict.items():
+    actualTime = dayStart
+    beforeLunch = True
+    for talk in value:
+        actualTime = actualTime + datetime.timedelta(minutes=talk.duration)  # https://stackoverflow.com/a/100345
+        # print(actualTime)
+        actualTime = actualTime + datetime.timedelta(minutes=20)
+        # print(actualTime)
+        if actualTime > datetime.datetime(1900, 1, 1, 12, 0, 0) and beforeLunch:
+            actualTime = actualTime + datetime.timedelta(hours=1)
+            beforeLunch = False
+        # print(actualTime)
+
+    print("Nap vége November {0}.: {1}".format(key, actualTime.strftime("%H:%M"))) # https://www.tutorialspoint.com/How-to-get-formatted-date-and-time-in-Python
