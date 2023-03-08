@@ -23,11 +23,12 @@ class Talk:
 
 input_file = open("eloadasok.txt")
 
+# 1. feladat
 talks = []
 
 for line in input_file.readlines():
-    split_line = line.split("\t")
+    split_line = line.strip().split("\t") # strip: used to remove line end character "\n" which would just cause trouble later
     talks.append(
         Talk(split_line[0], split_line[1], split_line[2], split_line[3], split_line[4], split_line[5], split_line[6].split(",")))
 
-print(talks[0])
+
