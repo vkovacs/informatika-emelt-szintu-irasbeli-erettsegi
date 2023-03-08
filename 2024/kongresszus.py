@@ -146,7 +146,7 @@ def whatsHappenningAt(day, time):
             beforeLunch = False
             if time < actualTime:
                 print("Ebédidő")
-                return 
+                return
 
     print("Már véget ért")
 
@@ -154,8 +154,23 @@ inputDay = 5  # read from console..
 inputHour = 12  # read from console..
 inputMinute = 37  # read from console..
 
-
-
 inputTime = datetime.datetime(1900, 1, 1, inputHour, inputMinute, 0)
 whatsHappenningAt(inputDay, inputTime)
+
+# 9. feladat
+
+dayStart = datetime.datetime(1900, 1, 1, 8, 0, 0)  # https://stackoverflow.com/a/100345
+for key, value in sortedDayTalksDict.items():
+    print("November {0}".format(key))
+    actualTime = dayStart
+    beforeLunch = True
+    for talk in value:
+        nextTime = actualTime + datetime.timedelta(minutes=talk.duration)  # https://stackoverflow.com/a/100345
+        print(actualTime.strftime("%H:%M-")+nextTime.strftime("%H:%M") + " " + talk.speaker + " " + talk.title + " (" + ",".join(talk.tools) + ")") # https://www.programiz.com/python-programming/methods/string/join
+        actualTime = nextTime
+
+        actualTime = actualTime + datetime.timedelta(minutes=20)  # vita
+        if actualTime > datetime.datetime(1900, 1, 1, 12, 0, 0) and beforeLunch:
+            actualTime = actualTime + datetime.timedelta(hours=1)  # ebedido
+            beforeLunch = False
 
