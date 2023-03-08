@@ -92,12 +92,21 @@ for key, value in sortedDayTalksDict.items():
     beforeLunch = True
     for talk in value:
         actualTime = actualTime + datetime.timedelta(minutes=talk.duration)  # https://stackoverflow.com/a/100345
-        # print(actualTime)
-        actualTime = actualTime + datetime.timedelta(minutes=20)
-        # print(actualTime)
+        actualTime = actualTime + datetime.timedelta(minutes=20) # vita
         if actualTime > datetime.datetime(1900, 1, 1, 12, 0, 0) and beforeLunch:
-            actualTime = actualTime + datetime.timedelta(hours=1)
+            actualTime = actualTime + datetime.timedelta(hours=1) # ebedido
             beforeLunch = False
-        # print(actualTime)
 
     print("Nap vége November {0}.: {1}".format(key, actualTime.strftime("%H:%M"))) # https://www.tutorialspoint.com/How-to-get-formatted-date-and-time-in-Python
+
+# 6. feladat
+day3Talks = sortedDayTalksDict[7]
+actualTime = dayStart
+for talk in day3Talks:
+    actualTime = actualTime + datetime.timedelta(minutes=talk.duration)  # https://stackoverflow.com/a/100345
+    actualTime = actualTime + datetime.timedelta(minutes=20)  # vita
+    if actualTime > datetime.datetime(1900, 1, 1, 12, 0, 0):
+        print("A harmadik napon az ebéd {0} kor kezdődik", actualTime.strftime("%H:%M"))
+        break # Nem szeretnenk minden további aznapi eloadashoz is kiirni, hogy mikor volt ebedido. https://www.digitalocean.com/community/tutorials/how-to-use-break-continue-and-pass-statements-when-working-with-loops-in-python-3
+
+# 7. feladat
