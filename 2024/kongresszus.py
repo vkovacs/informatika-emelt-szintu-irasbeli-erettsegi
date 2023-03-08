@@ -92,12 +92,13 @@ for key, value in sortedDayTalksDict.items():
     beforeLunch = True
     for talk in value:
         actualTime = actualTime + datetime.timedelta(minutes=talk.duration)  # https://stackoverflow.com/a/100345
-        actualTime = actualTime + datetime.timedelta(minutes=20) # vita
+        actualTime = actualTime + datetime.timedelta(minutes=20)  # vita
         if actualTime > datetime.datetime(1900, 1, 1, 12, 0, 0) and beforeLunch:
-            actualTime = actualTime + datetime.timedelta(hours=1) # ebedido
+            actualTime = actualTime + datetime.timedelta(hours=1)  # ebedido
             beforeLunch = False
 
-    print("Nap vége November {0}.: {1}".format(key, actualTime.strftime("%H:%M"))) # https://www.tutorialspoint.com/How-to-get-formatted-date-and-time-in-Python
+    print("Nap vége November {0}.: {1}".format(key, actualTime.strftime(
+        "%H:%M")))  # https://www.tutorialspoint.com/How-to-get-formatted-date-and-time-in-Python
 
 # 6. feladat
 day3Talks = sortedDayTalksDict[7]
@@ -107,7 +108,7 @@ for talk in day3Talks:
     actualTime = actualTime + datetime.timedelta(minutes=20)  # vita
     if actualTime > datetime.datetime(1900, 1, 1, 12, 0, 0):
         print("A harmadik napon az ebéd {0} kor kezdődik", actualTime.strftime("%H:%M"))
-        break # Nem szeretnenk minden további aznapi eloadashoz is kiirni, hogy mikor volt ebedido. https://www.digitalocean.com/community/tutorials/how-to-use-break-continue-and-pass-statements-when-working-with-loops-in-python-3
+        break  # Nem szeretnenk minden további aznapi eloadashoz is kiirni, hogy mikor volt ebedido. https://www.digitalocean.com/community/tutorials/how-to-use-break-continue-and-pass-statements-when-working-with-loops-in-python-3
 
 # 7. feladat
 speakerCountDict = {}
@@ -121,3 +122,40 @@ for key, value in sortedDayTalksDict.items():
 for key, value in speakerCountDict.items():
     if value > 1:
         print("{0} {1}".format(key, value))
+
+# 8. feladat
+
+def whatsHappenningAt(day, time):
+    actualTime = dayStart
+    if time < dayStart:
+        print("Még nem kezdődött el")
+        return
+
+    beforeLunch = True
+    for talk in sortedDayTalksDict[day]:
+        actualTime = actualTime + datetime.timedelta(minutes=talk.duration)  # https://stackoverflow.com/a/100345
+        if time < actualTime:
+            print("Előadás")
+            return
+        actualTime = actualTime + datetime.timedelta(minutes=20)  # vita
+        if time < actualTime:
+            print("Vita")
+            return
+        if actualTime > datetime.datetime(1900, 1, 1, 12, 0, 0) and beforeLunch:
+            actualTime = actualTime + datetime.timedelta(hours=1)  # ebedido
+            beforeLunch = False
+            if time < actualTime:
+                print("Ebédidő")
+                return 
+
+    print("Már véget ért")
+
+inputDay = 5  # read from console..
+inputHour = 12  # read from console..
+inputMinute = 37  # read from console..
+
+
+
+inputTime = datetime.datetime(1900, 1, 1, inputHour, inputMinute, 0)
+whatsHappenningAt(inputDay, inputTime)
+
