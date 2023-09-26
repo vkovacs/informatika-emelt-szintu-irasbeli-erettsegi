@@ -50,7 +50,7 @@ def sorszam(month, day): # https://tecadmin.net/calculate-days-between-two-dates
     dayStart = date(2023, 6, 16)
     actualDay = date(2023, month, day)
 
-    return (actualDay - dayStart).days + 1
+    return (actualDay - dayStart).days + 1 # add plus one because it calculates 2023.6.16 as the 0th day of holiday and we need it as the 1st day..
 
 print("Aug 31 a nyariszunet {0}. napja".format(sorszam(8, 31)))
 
