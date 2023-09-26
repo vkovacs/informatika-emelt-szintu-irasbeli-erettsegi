@@ -79,7 +79,7 @@ student_id = "L"
 students_camps = []
 for camp in camps:
     if student_id in camp[4]: # https://www.javatpoint.com/check-if-string-has-character-in-python
-        start = date(2023, int(camp[0]), int(camp[1]))
+        start = date(2023, int(camp[0]), int(camp[1])) # do not sort by string because 6.15 would be sooner in the list than 6.2
         end = date(2023, int(camp[2]), int(camp[3]))
 
         students_camps.append([start, end, camp])
@@ -89,7 +89,20 @@ for camp in camps:
 # https://www.tutorialspoint.com/How-to-sort-a-Python-date-string-list
 students_camps.sort(key = lambda camp : camp[0]) # sort by the 0.parameter of the parameter received by the lambda (which will be in date format)
 
-
 # TODO: make it to write to file
 for students_camp in students_camps:
     print("{}.{}-{}.{}. {}".format(students_camp[2][0], students_camp[2][1], students_camp[2][2], students_camp[2][3], students_camp[2][5]))
+
+found_overlap = False
+
+for i in students_camps:
+    for j in students_camps:
+        if (i[0] <= j[0] and i[1] >= j[1]) or (j[0] <= i[0] and j[1] >= i[1]):
+            found_overlap = True
+            break
+
+    if found_overlap:
+        break
+
+if found_overlap:
+    print("Nem mehet el mindegyik taborba")
