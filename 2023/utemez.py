@@ -44,6 +44,7 @@ for i in camp_index_with_max_attendant:
     print("{0} {1} {2}".format(camps[i][0], camps[i][1], camps[i][5]))
 
 # 5. feladat
+print("5. feladat")
 
 def sorszam(month, day): # https://tecadmin.net/calculate-days-between-two-dates-in-python/
     dayStart = date(2023, 6, 16)
@@ -54,6 +55,7 @@ def sorszam(month, day): # https://tecadmin.net/calculate-days-between-two-dates
 print("Aug 31 a nyariszunet {0}. napja".format(sorszam(8, 31)))
 
 # 6. feladat
+print("6. feladat")
 
 user_month = 8  # should be user input, but I use predefined values for the sake of convenience
 user_day = 1
@@ -70,3 +72,24 @@ for camp in camps:
 
 print("Ekkor eppen {0} tabor tart.".format(camps_count_at_user_date))
 
+# 7 feladat
+print("7. feladat")
+
+student_id = "L"
+students_camps = []
+for camp in camps:
+    if student_id in camp[4]: # https://www.javatpoint.com/check-if-string-has-character-in-python
+        start = date(2023, int(camp[0]), int(camp[1]))
+        end = date(2023, int(camp[2]), int(camp[3]))
+
+        students_camps.append([start, end, camp])
+
+
+# https://www.w3schools.com/python/python_lambda.asp
+# https://www.tutorialspoint.com/How-to-sort-a-Python-date-string-list
+students_camps.sort(key = lambda camp : camp[0]) # sort by the 0.parameter of the parameter received by the lambda (which will be in date format)
+
+
+# TODO: make it to write to file
+for students_camp in students_camps:
+    print("{}.{}-{}.{}. {}".format(students_camp[2][0], students_camp[2][1], students_camp[2][2], students_camp[2][3], students_camp[2][5]))
