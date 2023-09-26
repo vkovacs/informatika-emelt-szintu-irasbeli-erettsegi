@@ -1,3 +1,5 @@
+from datetime import date
+
 input_file = open("taborok.txt")
 
 # 1. feladat
@@ -40,3 +42,15 @@ for i in range(1, len(camps)):  # end parameter of range is exclusive     #https
 print("Legnepszerubbek: ")
 for i in camp_index_with_max_attendant:
     print("{0} {1} {2}".format(camps[i][0], camps[i][1], camps[i][5]))
+
+# 5. feladat
+
+def sorszam(month, day): # https://tecadmin.net/calculate-days-between-two-dates-in-python/
+    dayStart = date(2023, 6, 16)
+    actualDay = date(2023, month, day)
+
+    return (actualDay - dayStart).days + 1
+
+print("Aug 31 a nyariszunet {0}. napja".format(sorszam(8, 31)))
+
+# 6. feladat
