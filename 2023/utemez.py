@@ -12,7 +12,7 @@ for line in input_file.readlines():
 print("2. feladat")
 print("Az adatsorok szama: {0}".format(len(camps)))
 print("Az eloszor rogzitett tabor temaja: {}".format(camps[0][5]))
-print("Az utoljara rogzitett tabor temaja: {}".format(camps[len(camps) - 1][5])) #shorter version: camps[-1][5])     https://stackoverflow.com/a/930398
+print("Az utoljara rogzitett tabor temaja: {}".format(camps[len(camps) - 1][5]))  # shorter version: camps[-1][5])     https://stackoverflow.com/a/930398
 
 # 3. feladat
 print("3. feladat")
@@ -24,3 +24,19 @@ for camp in camps:
 
 if music_camp_count == 0:
     print("Nem volt zenei tabor!")
+
+# 4. feladat
+print("4. feladat")
+max_attendant_size = len(camps[0][4])
+camp_index_with_max_attendant = [0]
+
+for i in range(1, len(camps)):  # end parameter of range is exclusive     #https://docs.python.org/2/library/functions.html#range
+    if len(camps[i][4]) > max_attendant_size:
+        max_attendant_size = len(camps[i][4])
+        camp_index_with_max_attendant = [i]
+    elif len(camps[i][4]) == max_attendant_size:
+        camp_index_with_max_attendant.append(i)
+
+print("Legnepszerubbek: ")
+for i in camp_index_with_max_attendant:
+    print("{0} {1} {2}".format(camps[i][0], camps[i][1], camps[i][5]))
