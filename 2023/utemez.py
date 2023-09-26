@@ -54,3 +54,19 @@ def sorszam(month, day): # https://tecadmin.net/calculate-days-between-two-dates
 print("Aug 31 a nyariszunet {0}. napja".format(sorszam(8, 31)))
 
 # 6. feladat
+
+user_month = 8  # should be user input, but I use predefined values for the sake of convenience
+user_day = 1
+
+camps_count_at_user_date = 0
+for camp in camps:
+    start = date(2023, int(camp[0]), int(camp[1]))
+    end = date(2023, int(camp[2]), int(camp[3]))
+
+    user_date = date(2023, int(user_month), int(user_day))
+
+    if start <= user_date <= end:  # https://stackoverflow.com/a/5464467
+        camps_count_at_user_date = camps_count_at_user_date + 1
+
+print("Ekkor eppen {0} tabor tart.".format(camps_count_at_user_date))
+
