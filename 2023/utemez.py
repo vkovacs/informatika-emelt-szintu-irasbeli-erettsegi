@@ -46,11 +46,13 @@ for i in camp_index_with_max_attendant:
 # 5. feladat
 print("5. feladat")
 
-def sorszam(month, day): # https://tecadmin.net/calculate-days-between-two-dates-in-python/
+
+def sorszam(month, day):  # https://tecadmin.net/calculate-days-between-two-dates-in-python/
     dayStart = date(2023, 6, 16)
     actualDay = date(2023, month, day)
 
-    return (actualDay - dayStart).days + 1 # add plus one because it calculates 2023.6.16 as the 0th day of holiday and we need it as the 1st day..
+    return (actualDay - dayStart).days + 1  # add plus one because it calculates 2023.6.16 as the 0th day of holiday and we need it as the 1st day..
+
 
 print("Aug 31 a nyariszunet {0}. napja".format(sorszam(8, 31)))
 
@@ -78,16 +80,15 @@ print("7. feladat")
 student_id = "L"
 students_camps = []
 for camp in camps:
-    if student_id in camp[4]: # https://www.javatpoint.com/check-if-string-has-character-in-python
-        start = date(2023, int(camp[0]), int(camp[1])) # do not sort by string because 6.15 would be sooner in the list than 6.2
+    if student_id in camp[4]:  # https://www.javatpoint.com/check-if-string-has-character-in-python
+        start = date(2023, int(camp[0]), int(camp[1]))  # do not sort by string because 6.15 would be sooner in the list than 6.2
         end = date(2023, int(camp[2]), int(camp[3]))
 
         students_camps.append([start, end, camp])
 
-
 # https://www.w3schools.com/python/python_lambda.asp
 # https://www.tutorialspoint.com/How-to-sort-a-Python-date-string-list
-students_camps.sort(key = lambda camp : camp[0]) # sort by the 0.parameter of the parameter received by the lambda (which will be in date format)
+students_camps.sort(key=lambda camp: camp[0])  # sort by the 0.parameter of the parameter received by the lambda (which will be in date format)
 
 # TODO: make it to write to file
 for students_camp in students_camps:
@@ -95,14 +96,9 @@ for students_camp in students_camps:
 
 found_overlap = False
 
-for i in students_camps:
-    for j in students_camps:
-        if (i[0] <= j[0] and i[1] >= j[1]) or (j[0] <= i[0] and j[1] >= i[1]):
-            found_overlap = True
-            break
-
-    if found_overlap:
-        break
+for i in range(0, len(students_camps) - 1):
+    if(students_camps[i][0] <= students_camps[i+1][0] and students_camps[i][1] >= students_camps[i+1][1]) or (students_camps[i][0] >= students_camps[i+1][0] and students_camps[i][1] <= students_camps[i+1][1]):
+        found_overlap = True
 
 if found_overlap:
     print("Nem mehet el mindegyik taborba")
