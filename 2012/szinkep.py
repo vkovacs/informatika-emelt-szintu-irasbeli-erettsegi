@@ -41,6 +41,31 @@ def countColorInColumn(color, colIndex):
 
     return colorCounter
 
+
 colorToCount = colors_multi_dimensional_list[34][7]
 print(f"Sorban: {countColorInRow(colorToCount, 34)} Oszlopban: {countColorInColumn(colorToCount, 7)}")
 
+# 4
+red = (255, 0, 0)
+green = (0, 255, 0)
+blue = (0, 0, 255)
+
+redCount = 0
+for i in range(0, 50):
+   redCount = redCount + countColorInRow(red, i)
+
+greenCount = 0
+for i in range(0, 50):
+   greenCount = greenCount + countColorInRow(green, i)
+
+blueCount = 0
+for i in range(0, 50):
+   blueCount = blueCount + countColorInRow(blue, i)
+
+maxColor = "Piros"
+if greenCount > redCount:
+    maxColor = "Zöld"
+if (blueCount > greenCount):
+    maxColor = "Kék"
+
+print(f"A piros színből {redCount} a zöld színből {greenCount} a kék színből {blueCount} darab van a képen. Tehát a legtöbb szín {maxColor}-ból van.")
