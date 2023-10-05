@@ -101,4 +101,23 @@ flattened_bordered_colors_multi_dimensional_list = list(chain.from_iterable(
     bordered_colors_multi_dimensional_list))  # flatten list: https://realpython.com/python-flatten-list/#chaining-iterables-with-itertoolschain
 
 for color in flattened_bordered_colors_multi_dimensional_list:
-    print(str(color[0]) + " " + str(color[1]) + " " + str(color[2])) # TODO: write to file..
+    print(str(color[0]) + " " + str(color[1]) + " " + str(color[2]))  # TODO: write to file..
+
+# 7
+
+# Suppose that we do not have any other yellow pixels just the pixels of the rectangle.
+yellow = (255, 255, 0)
+rectangleSize = 0
+firstYellowCoordinate = (-1, -1)
+lastYellowCoordinate = (-1, -1)
+for i in range(0, 50):
+    for j in range(0, 50):
+        if bordered_colors_multi_dimensional_list[i][j] == yellow:
+            if firstYellowCoordinate == (-1, -1):
+                firstYellowCoordinate = (i, j)
+            rectangleSize = rectangleSize + 1
+            lastYellowCoordinate = (i, j) # when there is no more yellow color this will be the index of the last one :)
+
+print(f"Kezd: {firstYellowCoordinate[0]}, {firstYellowCoordinate[1]}")
+print(f"Vege: {lastYellowCoordinate[0]}, {lastYellowCoordinate[1]}")
+print(f"Képpontok száma: {rectangleSize}")
