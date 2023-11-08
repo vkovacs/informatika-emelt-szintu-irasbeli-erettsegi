@@ -3,18 +3,15 @@ throws_input_file = open("dobasok.txt")
 paths_input_file = open("osvenyek.txt")
 
 
-def read_file(file, delimiter):
-    elements = []
+throws = []
+for element in throws_input_file.readlines()[0].strip().split(" "):
+    throws.append(int(element))
 
-    for line in file.readlines():
-        split_line = line.strip().split(delimiter)  # strip: used to remove line end character "\n" which would just cause trouble later
-        elements.append(split_line)
+paths = []
+for lines in paths_input_file:
+    line = lines.strip().split("\t")[0]
+    paths.append(line)
 
-    return elements
-
-
-throws = read_file(throws_input_file, " ")[0]
-paths = read_file(paths_input_file, "\t")
 
 print(throws)
 print(paths)
@@ -23,3 +20,13 @@ print(paths)
 
 print(f"A dobások száma: {len(throws)}")
 print(f"Az ösvények száma: {len(paths)}")
+
+# 3. feladat
+
+min_path_index = 0
+
+for path_index in range(1, len(paths)):
+    if len(paths[path_index]) > len(paths[min_path_index]):
+        min_path_index = path_index
+
+print(f"Az egyik leghosszabb a(z) {min_path_index + 1} ösvény, hossza: {len(paths[min_path_index])}")
