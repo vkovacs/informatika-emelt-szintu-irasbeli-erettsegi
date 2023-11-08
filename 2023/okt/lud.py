@@ -2,7 +2,6 @@
 throws_input_file = open("dobasok.txt")
 paths_input_file = open("osvenyek.txt")
 
-
 throws = []
 for element in throws_input_file.readlines()[0].strip().split(" "):
     throws.append(int(element))
@@ -11,7 +10,6 @@ paths = []
 for lines in paths_input_file:
     line = lines.strip().split("\t")[0]
     paths.append(line)
-
 
 print(throws)
 print(paths)
@@ -30,3 +28,17 @@ for path_index in range(1, len(paths)):
         min_path_index = path_index
 
 print(f"Az egyik leghosszabb a(z) {min_path_index + 1} ösvény, hossza: {len(paths[min_path_index])}")
+
+# 4. feladat
+
+chosen_path_index = 8  # FIXME: read from user input
+player_count = 5  # FIXME: read from user input
+
+# 5. feladat
+
+field_dict = {"M": 0, "E": 0, "V": 0}
+
+for field in paths[chosen_path_index]:
+    field_dict[field] += 1
+
+print(field_dict)
