@@ -57,7 +57,7 @@ print(special_character_lines)  # FIXME: write result to file
 
 is_game_finished = False
 player_positions = [0 for _ in range(player_count)]  # https://www.w3schools.com/python/python_lists_comprehension.asp
-actual_throw_position = -1
+actual_throw_index = -1
 turn_count = -1
 actual_player_index = 0
 
@@ -66,8 +66,8 @@ while not is_game_finished:
     if actual_player_index == 0:
         turn_count += 1
 
-    actual_throw_position += 1
-    actual_throw = throws[actual_throw_position]
+    actual_throw_index += 1
+    actual_throw = throws[actual_throw_index]
 
     player_positions[actual_player_index] += actual_throw
 
@@ -77,3 +77,51 @@ while not is_game_finished:
         actual_player_index += 1
 
 print(f"A játék a {turn_count + 1}. körben fejeződött be a játékot a {actual_player_index + 1}. játékos nyerte")
+
+# 8. feladat
+is_game_finished = False
+player_positions = [0 for _ in range(player_count)]  # https://www.w3schools.com/python/python_lists_comprehension.asp
+actual_throw_index = -1
+turn_count = -1
+actual_player_index = 0
+chosen_path = paths[chosen_path_index]
+
+
+def is_player_finished(player_positions, path):
+    for i in range(0, len(player_positions)):
+        if player_positions[i] >= len(path):
+            return True
+
+    return False
+
+
+def to_index(position):
+    return position - 1
+
+
+while not is_player_finished(player_positions, chosen_path):  # or actual_player_index != player_count - 1:
+    actual_player_index = actual_player_index % player_count
+
+    if actual_player_index == 0:
+        turn_count += 1
+
+    actual_throw_index += 1
+    actual_throw = throws[actual_throw_index]
+
+    thrown_new_player_position = player_positions[actual_player_index] + actual_throw
+    thrown_new_player_position_index = thrown_new_player_position - 1
+
+    # print(player_positions)
+    if thrown_new_player_position_index < len(chosen_path):
+        if chosen_path[thrown_new_player_position_index] == "E":
+            player_positions[actual_player_index] += actual_throw * 2
+        elif chosen_path[thrown_new_player_position_index] == "M":
+            player_positions[actual_player_index] += actual_throw
+    print(f"{turn_count} {player_positions}")
+
+    print(f"{turn_count} {actual_player_index} {actual_throw} {chosen_path[thrown_new_player_position - 1]}")
+
+    if not is_player_finished(player_positions, chosen_path):
+        actual_player_index += 1
+
+print(player_positions)
