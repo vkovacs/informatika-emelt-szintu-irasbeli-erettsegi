@@ -1,0 +1,1 @@
+https://dload-oktatas.educatio.hu/erettsegi/feladatok_2023osz_emelt/e_inf_23okt_fl.pdf
