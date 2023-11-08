@@ -55,7 +55,9 @@ print(special_character_lines)  # FIXME: write result to file
 
 # 7. feladat
 
+
 is_game_finished = False
+# player positions show the players position on the board, which board is indexed from 1
 player_positions = [0 for _ in range(player_count)]  # https://www.w3schools.com/python/python_lists_comprehension.asp
 actual_throw_index = -1
 turn_count = -1
@@ -80,6 +82,7 @@ print(f"A játék a {turn_count + 1}. körben fejeződött be a játékot a {act
 
 # 8. feladat
 is_game_finished = False
+# player positions show the players position on the board, which board is indexed from 1
 player_positions = [0 for _ in range(player_count)]  # https://www.w3schools.com/python/python_lists_comprehension.asp
 actual_throw_index = -1
 turn_count = -1
@@ -93,7 +96,6 @@ def is_player_finished(player_position, path):
 
 def is_any_player_finished(player_positions, path):
     for i in range(0, len(player_positions)):
-        # if player_positions[i] >= len(path):
         if is_player_finished(player_positions[i], path):
             return True
 
@@ -110,24 +112,27 @@ while not is_any_player_finished(player_positions, chosen_path) or not (actual_p
     actual_throw = throws[actual_throw_index]
 
     thrown_new_player_position = player_positions[actual_player_index] + actual_throw
+    # thrown_new_player_position is an index on the board (1 based indexed), but our board is represented in a list which is 0 based indexed!!
     thrown_new_player_position_index = thrown_new_player_position - 1
 
-    # print(player_positions)
     if not is_player_finished(thrown_new_player_position, chosen_path):
         if chosen_path[thrown_new_player_position_index] == "E":
             player_positions[actual_player_index] += actual_throw * 2
         elif chosen_path[thrown_new_player_position_index] == "M":
             player_positions[actual_player_index] += actual_throw
     else:
-        player_positions[actual_player_index] = thrown_new_player_position
+        player_positions[actual_player_index] = thrown_new_player_position  # position NEEDS to be updated even there is no such position on board!!
 
-    print(f"{turn_count} {player_positions}")
+    # print(f"{turn_count} {player_positions}")
 
-    # print(f"{turn_count} {actual_player_index} {actual_throw} {chosen_path[thrown_new_player_position - 1]}")
-
-    if (is_any_player_finished(player_positions, chosen_path)):
-        print("a")
     actual_player_index += 1
 
 print(player_positions)
-print(f"A játék a {turn_count + 1}. körben fejeződött be a játékot a {actual_player_index + 1}. játékos nyerte")
+
+max_value_indices = [i for i, num in enumerate(player_positions) if num == max(player_positions)]
+
+print(f"Győztesek: {[i + 1 for i in max_value_indices]}")
+
+for i in range(0, player_count):
+    if i not in max_value_indices:
+        print(f"Játékos: {i + 1}, {player_positions[i]} mező.")
