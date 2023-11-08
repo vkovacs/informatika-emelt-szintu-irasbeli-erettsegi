@@ -42,3 +42,13 @@ for field in paths[chosen_path_index]:
     field_dict[field] += 1
 
 print(field_dict)
+
+# 6. feladat
+position = 0    # I guess they want to have the positions indexed from 1 not form 0, so I'm using value 0 here and immediately increase it by 1 in the loop
+special_character_lines = []
+for field in paths[chosen_path_index]:
+    position += 1
+    if field in ["E", "V"]:
+        special_character_lines.append(f"{position} \t {field}")
+
+print(special_character_lines)  # FIXME: write result to file
