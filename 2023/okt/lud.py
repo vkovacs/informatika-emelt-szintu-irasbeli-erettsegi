@@ -44,7 +44,7 @@ for field in paths[chosen_path_index]:
 print(field_dict)
 
 # 6. feladat
-position = 0    # I guess they want to have the positions indexed from 1 not form 0, so I'm using value 0 here and immediately increase it by 1 in the loop
+position = 0  # I guess they want to have the positions indexed from 1 not form 0, so I'm using value 0 here and immediately increase it by 1 in the loop
 special_character_lines = []
 for field in paths[chosen_path_index]:
     position += 1
@@ -52,3 +52,28 @@ for field in paths[chosen_path_index]:
         special_character_lines.append(f"{position} \t {field}")
 
 print(special_character_lines)  # FIXME: write result to file
+
+# 7. feladat
+
+is_game_finished = False
+player_positions = [0 for _ in range(player_count)]  # https://www.w3schools.com/python/python_lists_comprehension.asp
+actual_throw_position = -1
+turn_count = -1
+actual_player_index = 0
+
+while not is_game_finished:
+    actual_player_index = actual_player_index % player_count
+    if actual_player_index == 0:
+        turn_count += 1
+
+    actual_throw_position += 1
+    actual_throw = throws[actual_throw_position]
+
+    player_positions[actual_player_index] += actual_throw
+
+    if player_positions[actual_player_index] >= len(paths[chosen_path_index]):
+        is_game_finished = True
+    else:
+        actual_player_index += 1
+
+print(f"A játék a {turn_count + 1}. körben fejeződött be a játékot a {actual_player_index + 1}. játékos nyerte")
