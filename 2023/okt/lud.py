@@ -87,19 +87,20 @@ actual_player_index = 0
 chosen_path = paths[chosen_path_index]
 
 
-def is_player_finished(player_positions, path):
+def is_player_finished(player_position, path):
+    return player_position >= len(path)
+
+
+def is_any_player_finished(player_positions, path):
     for i in range(0, len(player_positions)):
-        if player_positions[i] >= len(path):
+        # if player_positions[i] >= len(path):
+        if is_player_finished(player_positions[i], path):
             return True
 
     return False
 
 
-def to_index(position):
-    return position - 1
-
-
-while not is_player_finished(player_positions, chosen_path):  # or actual_player_index != player_count - 1:
+while not is_any_player_finished(player_positions, chosen_path) or not (actual_player_index == player_count or actual_player_index == 0):
     actual_player_index = actual_player_index % player_count
 
     if actual_player_index == 0:
@@ -112,16 +113,21 @@ while not is_player_finished(player_positions, chosen_path):  # or actual_player
     thrown_new_player_position_index = thrown_new_player_position - 1
 
     # print(player_positions)
-    if thrown_new_player_position_index < len(chosen_path):
+    if not is_player_finished(thrown_new_player_position, chosen_path):
         if chosen_path[thrown_new_player_position_index] == "E":
             player_positions[actual_player_index] += actual_throw * 2
         elif chosen_path[thrown_new_player_position_index] == "M":
             player_positions[actual_player_index] += actual_throw
+    else:
+        player_positions[actual_player_index] = thrown_new_player_position
+
     print(f"{turn_count} {player_positions}")
 
-    print(f"{turn_count} {actual_player_index} {actual_throw} {chosen_path[thrown_new_player_position - 1]}")
+    # print(f"{turn_count} {actual_player_index} {actual_throw} {chosen_path[thrown_new_player_position - 1]}")
 
-    if not is_player_finished(player_positions, chosen_path):
-        actual_player_index += 1
+    if (is_any_player_finished(player_positions, chosen_path)):
+        print("a")
+    actual_player_index += 1
 
 print(player_positions)
+print(f"A játék a {turn_count + 1}. körben fejeződött be a játékot a {actual_player_index + 1}. játékos nyerte")
