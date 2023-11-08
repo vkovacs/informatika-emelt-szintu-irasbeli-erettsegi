@@ -102,7 +102,7 @@ def is_any_player_finished(player_positions, path):
     return False
 
 
-while not is_any_player_finished(player_positions, chosen_path) or not (actual_player_index == player_count or actual_player_index == 0):
+while not is_any_player_finished(player_positions, chosen_path) or not actual_player_index == player_count:
     actual_player_index = actual_player_index % player_count
 
     if actual_player_index == 0:
