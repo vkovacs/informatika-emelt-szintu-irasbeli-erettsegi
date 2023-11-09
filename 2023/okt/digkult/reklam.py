@@ -10,3 +10,7 @@ for line in orders_file.readlines():
     orders.append(order_item)
 
 print(orders)
+
+# 2. feladat
+
+print(f"Az össes rendelés darabszáma: {len(orders)}")
