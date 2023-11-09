@@ -54,3 +54,14 @@ for order in reversed(orders): # reversed is needed to show the _first_ day on w
         max_order_day = order[0]
 
 print(f"A legnagyobb darabszám: {max_order_size}, a rendelés napja: {max_order_day}")
+
+# 6. feladat
+
+def osszes(city, day):
+    sum = 0
+    for order in orders:
+        if order[0] == day and order[1] == city:
+            sum += order[2]
+    return sum
+
+print(osszes("PL", 7))
