@@ -47,13 +47,14 @@ else:
 max_order_size = -1
 max_order_day = -1
 
-for order in reversed(orders): # reversed is needed to show the _first_ day on which this order occurred
+for order in reversed(orders):  # reversed is needed to show the _first_ day on which this order occurred
     order_size = order[2]
     if order_size > max_order_size:
         max_order_size = order_size
         max_order_day = order[0]
 
 print(f"A legnagyobb darabszám: {max_order_size}, a rendelés napja: {max_order_day}")
+
 
 # 6. feladat
 
@@ -64,8 +65,6 @@ def osszes(city, day):
             sum += order[2]
     return sum
 
-print(osszes("PL", 7))
-
 # 7. feladat
 
 day = 21
@@ -75,3 +74,20 @@ sumNR21 = osszes("NR", 21)
 
 print(f"A rendelt termékek darabszáma a {day}. napon PL: {sumPL21} TV: {sumTV21} NR: {sumNR21}")
 
+
+# 8. feladat
+
+def osszesTobbNapra(city, days): # The previous solution could have been overwritten and use one element list for day input in exercise 6.
+    sum = 0
+    for order in orders:
+        if order[0] in days and order[1] == city:
+            sum += 1
+    return sum
+
+
+print("{:<6} {:<10} {:<10} {:<10}".format("Napok", "1..10", "11..20", "21..30")) # {:<6}, :<10, and :<10 specify the left alignment and the width of each column.
+for city in ["PL", "TV", "NR"]:
+    print("{:<6} {:<10} {:<10} {:<10}".format(city,
+                                                    osszesTobbNapra(city, range(1, 11)),
+                                                    osszesTobbNapra(city, range(11, 21)),
+                                                    osszesTobbNapra(city, range(21, 31))))
