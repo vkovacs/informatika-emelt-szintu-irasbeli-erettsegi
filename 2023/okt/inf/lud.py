@@ -55,7 +55,6 @@ print(special_character_lines)  # FIXME: write result to file
 
 # 7. feladat
 
-
 is_game_finished = False
 # player positions show the players position on the board, which board is indexed from 1
 player_positions = [0 for _ in range(player_count)]  # https://www.w3schools.com/python/python_lists_comprehension.asp
