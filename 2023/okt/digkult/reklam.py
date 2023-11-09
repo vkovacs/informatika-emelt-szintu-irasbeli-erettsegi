@@ -65,3 +65,13 @@ def osszes(city, day):
     return sum
 
 print(osszes("PL", 7))
+
+# 7. feladat
+
+day = 21
+sumPL21 = osszes("PL", 21)
+sumTV21 = osszes("TV", 21)
+sumNR21 = osszes("NR", 21)
+
+print(f"A rendelt termékek darabszáma a {day}. napon PL: {sumPL21} TV: {sumTV21} NR: {sumNR21}")
+
