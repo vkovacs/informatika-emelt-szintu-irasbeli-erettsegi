@@ -36,4 +36,21 @@ for order in orders:
 print(days_with_order_in_NR)
 
 days_count_without_order_in_NR = len(set(range(1, 31)) - days_with_order_in_NR)
-print(f"{days_count_without_order_in_NR} nap nem volt a reklámban nem érintett városból rendelés")
+
+if days_count_without_order_in_NR > 0:
+    print(f"{days_count_without_order_in_NR} nap nem volt a reklámban nem érintett városból rendelés")
+else:
+    print("Minden nap volt rendelés a reklámban nem érintett városból")
+
+# 5. feladat
+
+max_order_size = -1
+max_order_day = -1
+
+for order in reversed(orders): # reversed is needed to show the _first_ day on which this order occurred
+    order_size = order[2]
+    if order_size > max_order_size:
+        max_order_size = order_size
+        max_order_day = order[0]
+
+print(f"A legnagyobb darabszám: {max_order_size}, a rendelés napja: {max_order_day}")
