@@ -25,3 +25,14 @@ for i in range(len(signals)):
     if 'farkas' in signals[i]:
         print(f'farkas word is in {signals_metadata[i]}')
 
+# 4
+signal_count_per_day = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+for metadata in signals_metadata:
+    day = metadata[0]
+    day_index = day - 1
+    signal_count_per_day[day_index] = signal_count_per_day[day_index] + 1
+
+for day_index in range(len(signal_count_per_day)):
+    print(f'On the {day_index + 1} day there were {signal_count_per_day[day_index]} message')
+
