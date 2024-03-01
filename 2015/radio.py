@@ -19,3 +19,9 @@ print(signals)
 # 2
 print(f'First radio amateur id in file: {signals_metadata[0][1]}')
 print(f'Last radio amateur id in file: {signals_metadata[-1][1]}')
+
+# 3
+for i in range(len(signals)):
+    if 'farkas' in signals[i]:
+        print(f'farkas word is in {signals_metadata[i]}')
+
